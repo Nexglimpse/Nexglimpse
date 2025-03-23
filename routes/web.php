@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\ProjectController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -18,7 +19,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Prefix all dashboard-related routes
-Route::prefix('dashboard')->middleware('auth')->group(function () {
+Route::prefix('dashboard')->as('dashboard.')->middleware('auth')->group(function () {
 
     Route::get('/', [dashboardController::class, 'view'])->name('dashboard');
 
@@ -29,6 +30,14 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
         // Route::post('/edit/{id}/save', [UserController::class, 'update'])->name('users.edit.save');
         // Route::post('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+    });
+
+    
+
+    Route::prefix('/projects')->name('projects.')->group(function () {
+        Route::get('/', [ProjectController::class, 'index'])->name('index');
+        Route::get('/create', [ProjectController::class, 'create'])->name('create');
+        Route::post('/projects', [ProjectController::class, 'store'])->name('store');
     });
 
 });

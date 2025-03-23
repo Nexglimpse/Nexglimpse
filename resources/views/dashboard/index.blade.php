@@ -25,6 +25,7 @@
 
 @section('content')
 <h2>Google Sheets Data</h2>
+<a href="{{ route('dashboard.projects.index') }}"></a>
 <div class="container table-container">
     <div class="card">
         <div class="card-header">
